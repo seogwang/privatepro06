@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>로그인</title>
+    <style>
+        h2 {text-align: center; padding-top: 2rem;}
+    </style>
+</head>
+
+<div layout:fragment="content">
+    <section class="admission_section">
+        <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="admission_detail-box">
+                        <h3 style="padding-bottom: 2rem;">
+                            에듀몬 로그인
+                        </h3>
+                        <div class="form_wrap">
+                            <form action="/member/loginPro" method="post">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">이메일</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">비밀번호</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                                </div>
+                                <button type="submit" class="btn btn-warning" style="font-weight: bolder; width: 7rem;">로그인</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="admission_img-container">
+                        <img src="../images/admission.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
