@@ -23,12 +23,12 @@
                         <div class="form_wrap">
                             <form action="/member/loginPro" method="post">
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">이메일</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+                                    <label for="email" class="form-label">이메일</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력해주세요">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">비밀번호</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                                    <label for="password" class="form-label">비밀번호</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력해주세요">
                                 </div>
                                 <button type="submit" class="btn btn-warning" style="font-weight: bolder; width: 7rem;">로그인</button>
                             </form>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="admission_img-container">
-                        <img src="../images/admission.png" alt="">
+                        <img th:src="@{/images/admission.png}" alt="">
                     </div>
                 </div>
             </div>

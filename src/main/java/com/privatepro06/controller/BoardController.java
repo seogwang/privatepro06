@@ -6,9 +6,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -65,10 +67,19 @@ public class BoardController {
         return "redirect:/apiboard/list";
     }
 
-    @PreAuthorize("hasAnyRole('TEACHER')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN','TEACHER')")
     @GetMapping("/board/list")
-    public String boardList(){
+    public String boardList(Model model){
         List<BoardDTO> list = boardService.findAll();
+        model.addAttribute("list", list);
         return "board/list";
+    }
+
+    @PreAuthorize("hasAnyRole('USER','ADMIN','TEACHER')")
+    @GetMapping("/board/read")
+    public String readOne(Long bno, Model model){
+        BoardDTO dto = boardService.findByBno(bno);
+        model.addAttribute("dto", dto);
+        return "board/read";
     }
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Getter
 @Setter
 @ToString
+@EntityListeners(value = AuditingEntityListener.class)
 public class Member {
 
     @Id

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>로그인</title>
+    <style>
+        h2 {text-align: center; padding-top: 2rem;}
+        .fieldError { color: #bd2130; }
+    </style>
+</head>
+
+<div layout:fragment="content">
+    <!-- contact section -->
+    <section class="contact_section ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-center d-md-block">
+                        <h2>
+                            회원가입
+                        </h2>
+                    </div>
+                    <form action="/member/joinPro" role="form" method="post" th:object="${memberFormDTO}">
+                        <div class="contact_form-container">
+                            <div>
+                                <div>
+                                    <input type="text" th:field="*{name}" placeholder="이름" required>
+                                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
+                                </div>
+                                <div>
+                                    <input type="email" name="email" id="email" placeholder="이메일 주소" required>
+                                    <button type="button" class="btn btn-primary" onclick="validateDuplicate()">이메일 중복 검사</button>
+                                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+                                </div>
+                                <div>
+                                    <input type="password" name="password" placeholder="비밀번호">
+                                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
+                                </div>
+                                <div class="mt-5">
+                                    <input type="text" name="address" placeholder="주소">
+                                    <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect data</p>
+                                </div>
+                                <div class="mt-5">
+                                    <button type="submit" id="reg-btn">가입하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <script src="http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                    <script>
+                        var regBtn = document.getElementById("reg-btn");
+                        regBtn.style.display='none'
+                        var email = document.getElementById("email");
+                        async function validateDuplicate() {
+                            let data = { email:email.value };
+
+                            let result = await axios.post('/member/dup', data);
+                            console.log(result.data);
+                            if(result.data){
+                                regBtn.style.display='inline-block';
+                            } else {
+                                regBtn.style.display='none';
+                            }
+                        }
+                    </script>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="contact_img-box">
+                        <img th:src="@{/images/students.jpg}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end contact section -->
+</div>
+

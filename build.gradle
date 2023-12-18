@@ -38,24 +38,43 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
-    implementation 'com.querydsl:querydsl-jpa:5.0.0'
-    implementation 'com.querydsl:querydsl-apt:5.0.0'
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    implementation 'com.querydsl:querydsl-apt:5.0.0:jakarta'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
 
     annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
     annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
-    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0'
+    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
 
     implementation 'org.modelmapper:modelmapper:3.1.0'
 
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
-}
 
-tasks.named('bootBuildImage') {
-    builder = 'paketobuildpacks/builder-jammy-base:latest'
+    implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.4.Final'
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+
+
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+// 아예 예전처럼 빌드에 큐보드가 생기는 것이 아니라, 이 위치에 내장시킨다.
+def querydslDir = "src/main/generated"
+
+tasks.withType(JavaCompile) {
+    options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
+}
+
+sourceSets {
+    main.java.srcDirs += [ querydslDir ]
+}
+
+// 아래걸 해두면 gradle 에 뜬다. 더블클릭하면 다 클린된다. 빌드에. 그러고 나서 other에 compile java 하면 된다.
+clean {
+    delete file(querydslDir)
 }

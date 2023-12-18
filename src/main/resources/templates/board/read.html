@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>공지사항</title>
+    <style>
+        h2 {text-align: center; padding-top: 2rem;}
+        tbody td {text-align: left; padding-left: 10px;}
+    </style>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" th:href="@{/lib/jquery.dataTables.css}">
+    <script th:src="@{/lib/jquery.dataTables.js}"></script>
+
+</head>
+
+<div layout:fragment="content">
+    <section class="about_section">
+        <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="about_img-container">
+                        <img th:src="@{/images/about.png}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="about_detail-box" style="min-height: 50%;">
+                        <h3>
+                            에듀몬 공지사항
+                        </h3>
+                        <table class="tb1" id="myTable1">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                        <th class="item1">글번호</th>
+                                        <td class="item1">[[${dto.bno}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="item2">글제목</th>
+                                        <td class="item2">[[${dto.title}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="item3">내용</th>
+                                        <td class="item3">[[${dto.content}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="item4">작성자</th>
+                                        <td class="item4">[[${dto.writer}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="item5">작성일</th>
+                                        <td class="item5">[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                        <div class="">
+                            <a href="" class="call_to-btn btn_white-border">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

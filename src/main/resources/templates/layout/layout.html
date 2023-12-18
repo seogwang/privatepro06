@@ -16,20 +16,20 @@
     <title>레이아웃 페이지</title>
 
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
-    <!-- progress barstle -->
-    <link rel="stylesheet" href="../css/css-circular-prog-bar.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
     <!-- fonts style -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Raleway:400,600&display=swap" rel="stylesheet">
     <!-- font wesome stylesheet -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <!-- Custom styles for this template -->
-    <link href="../css/style.css" rel="stylesheet" />
-    <!-- responsive style -->
-    <link href="../css/responsive.css" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
 
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <link rel="stylesheet" href="../css/css-circular-prog-bar.css">
+    <style>
+        #myTable_length, #dataTables_filter { margin-top:20px; margin-bottom:20px; }
+    </style>
 
     <style>
         .header_section { background: #EEC515; }
@@ -65,15 +65,15 @@
                             </li>
 
                             <li class="nav-item ">
-                                <a class="nav-link" href="admission.html"> QnA </a>
+                                <a class="nav-link" href=""> QnA </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="why.html"> 학습계획 </a>
+                                <a class="nav-link" href="l"> 학습계획 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="contact.html">자료실</a>
+                                <a class="nav-link" href="">자료실</a>
                             </li>
 
                         </ul>
@@ -163,17 +163,17 @@
 
             <div class="social-box">
                 <a href="">
-                    <img src="images/fb.png" alt="">
+                    <img th:src="@{/images/fb.png}" alt="">
                 </a>
 
                 <a href="">
-                    <img src="images/twitter.png" alt="">
+                    <img th:src="@{/images/twitter.png}" alt="">
                 </a>
                 <a href="">
-                    <img src="images/linkedin.png" alt="">
+                    <img th:src="@{/images/linkedin.png}" alt="">
                 </a>
                 <a href="">
-                    <img src="images/instagram.png" alt="">
+                    <img th:src="@{/images/instagram.png}" alt="">
                 </a>
             </div>
         </div>
@@ -193,9 +193,5 @@
 <th:block layout:fragment="script">
 
 </th:block>
-
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-
 </body>
 </html>

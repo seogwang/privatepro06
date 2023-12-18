@@ -19,9 +19,9 @@ public class BoardRepositoryTests {
     public void testInsert(){
         IntStream.rangeClosed(1,100).forEach(i->{
             Board board = Board.builder()
-                    .title("title ..." + i)
-                    .content("content ..." + i)
-                    .writer("User " + (i % 10))
+                    .title("공지사항 : " + i)
+                    .content("이것은 공지사항 1의 내용입니다.")
+                    .writer("관리자")
                     .build();
             boardRepository.save(board);
             log.info("BNO : " + board.getBno());

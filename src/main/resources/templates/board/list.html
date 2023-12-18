@@ -6,18 +6,29 @@
 
 <head>
     <title>공지사항</title>
+
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" th:href="@{/lib/jquery.dataTables.css}">
+    <script th:src="@{/lib/jquery.dataTables.js}"></script>
+
     <style>
-        h2 {text-align: center; padding-top: 2rem;}
+        h2 { text-align: center; padding-top: 2rem;}
+        .item1 { width: 20%; text-align: center; }
+        .item2 { width: 60%; text-align: left; padding-left: 20px; }
+        .item3 { width: 20%; text-align: center; }
+
+        .item2 a { color: #6ebca8; font-weight: bolder; background: none; }
     </style>
+
 </head>
 
 <div layout:fragment="content">
     <section class="about_section">
-        <div class="container">
+        <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
             <div class="row">
                 <div class="col-md-6">
                     <div class="about_img-container">
-                        <img src="images/about.png" alt="">
+                        <img th:src="@{/images/about.png}" alt="">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -25,14 +36,44 @@
                         <h3>
                             에듀몬 공지사항
                         </h3>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                        </p>
-                        <div class="">
+                        <table class="tb1" id="myTable1">
+                            <thead>
+                                <tr>
+                                    <th class="item1">글번호</th>
+                                    <th class="item2">글제목</th>
+                                    <th class="item3">작성일</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr th:each="bd, status: ${list}">
+                                        <td class="item1">[[${status.index}]]</td>
+                                        <td class="item2"><a th:href="@{/board/read(bno=${bd.bno})}">[[${bd.title}]]</a></td>
+                                        <td class="item3">[[${#temporals.format(bd.regDate, 'yyyy-MM-dd')}]]</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                        <script>
+                            $(document).ready(function() {
+                                $('#myTable1').DataTable({
+                                    order: [0, "desc"],
+                                    language: {
+                                        lengthMenu: "페이지당 _MENU_ 개의 목록 표시",
+                                        search: "검색(제목):",
+                                        zeroRecords: "검색된 항목이 없습니다.",
+                                        info: "전체 _PAGES_ 페이지 중 _PAGE_ 페이지",
+                                        infoEmpty: "항목이 비었습니다.",
+                                        infoFiltered: "(전체 _MAX_개의 항목에서 검색)",
+                                        paginate: {
+                                            previous: "이전",
+                                            next: "다음"
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <div sec:authorize="hasRole('ADMIN')">
                             <a href="" class="call_to-btn btn_white-border">
-                                Read More
+                                공지사항 등록
                             </a>
                         </div>
                     </div>
