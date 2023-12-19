@@ -52,7 +52,7 @@
                     <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
                         <ul class="navbar-nav  ">
                             <div sec:authorize="isAuthenticated()" style="padding: 10px 20px;">
-                                <span th:text="${member.getName()}" style="font-weight: bold; color: #005cbf;"></span>님께서 로그인 하셨습니다.
+                                <span th:text="${session.member.getName()}" style="font-weight: bold; color: #005cbf;"></span>님께서 로그인 하셨습니다.
                                 <a href="">
                                     [정보수정]
                                 </a>

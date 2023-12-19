@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,5 +21,21 @@ public class QnaDTO {
     @Size(max = 2000)
     private String content;
 
+    @Size(max = 50)
+    private String email;
 
+    @Size(max = 50)
+    private String writer;
+
+    @Size(max = 11)
+    private int cnt;
+
+    @Size(max = 2)
+    private int lev;
+
+    @Size(max = 11)
+    private Long par;
+
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
 }

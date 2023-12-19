@@ -23,7 +23,7 @@
                             회원가입
                         </h2>
                     </div>
-                    <form action="/member/joinPro" role="form" method="post" th:object="${memberFormDTO}">
+                    <form action="/member/joinPro" role="form" method="post" id="frm" th:object="${memberFormDTO}">
                         <div class="contact_form-container">
                             <div>
                                 <div>
@@ -33,10 +33,12 @@
                                 <div>
                                     <input type="email" name="email" id="email" placeholder="이메일 주소" required>
                                     <button type="button" class="btn btn-primary" onclick="validateDuplicate()">이메일 중복 검사</button>
+                                    <p>*가입 가능한 이메일을 검사하신 경우 "가입하기"버튼이 등장합니다.</p>
                                     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
                                 </div>
                                 <div>
-                                    <input type="password" name="password" placeholder="비밀번호">
+                                    <input type="password" name="password" id="pw" placeholder="비밀번호">
+                                    <input type="password" name="password1" id="pw1" placeholder="비밀번호 확인">
                                     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
                                 </div>
                                 <div class="mt-5">
@@ -44,7 +46,7 @@
                                     <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect data</p>
                                 </div>
                                 <div class="mt-5">
-                                    <button type="submit" id="reg-btn">가입하기</button>
+                                    <button type="submit" onclick="return pw_ck()" id="reg-btn">가입하기</button>
                                 </div>
                             </div>
                         </div>
@@ -63,6 +65,16 @@
                                 regBtn.style.display='inline-block';
                             } else {
                                 regBtn.style.display='none';
+                            }
+                        }
+                        function pw_ck() {
+                            var pw = document.getElementById('pw').value;
+                            var pw1 = document.getElementById('pw1').value;
+                            if(pw === pw1) {
+                                document.getElementById('frm').submit();
+                            } else {
+                                alert("비밀번호와 비밀번호 확인이 다릅니다.");
+                                return false;
                             }
                         }
                     </script>

@@ -57,6 +57,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
                         <ul class="navbar-nav  ">
+                            <div sec:authorize="isAuthenticated()" style="padding: 10px 20px;">
+                                <span th:text="${session.member.getName()}" style="font-weight: bold; color: #005cbf;"></span>님께서 로그인 하셨습니다.
+                                <a href="">
+                                    [정보수정]
+                                </a>
+                                <a th:href="|@{/member/logout}|">
+                                    [로그아웃]
+                                </a>
+                            </div>
+
                             <li class="nav-item active">
                                 <a class="nav-link" href="/"> Home <span class="sr-only">(current)</span></a>
                             </li>
@@ -69,7 +79,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="l"> 학습계획 </a>
+                                <a class="nav-link" href=""> 학습계획 </a>
                             </li>
 
                             <li class="nav-item">

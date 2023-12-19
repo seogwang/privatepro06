@@ -75,7 +75,7 @@
                                         목록
                                     </a>
                                 </div>
-                                <div sec:athorize="hasRole('ADMIN')">
+                                <div sec:authorize="hasRole('ROLE_ADMIN')">
                                     <a th:href="|@{/board/editFm(bno=${dto.bno})}|" class="call_to-btn btn_white-border" style="padding: 10px 45px; background-color: #ffc107;">
                                         수정
                                     </a>
