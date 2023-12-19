@@ -8,6 +8,6 @@ public interface BoardService {
     List<BoardDTO> findAll();
     BoardDTO findByBno(Long bno);
     Long register(BoardDTO dto);
-    void modify(BoardDTO dto);
+    BoardDTO modify(BoardDTO dto);
     void remove(Long bno);
 }

@@ -20,7 +20,7 @@ public class BoardRepositoryTests {
         IntStream.rangeClosed(1,100).forEach(i->{
             Board board = Board.builder()
                     .title("공지사항 : " + i)
-                    .content("이것은 공지사항 1의 내용입니다.")
+                    .content("이것은 공지사항 " + i + "의 내용입니다.")
                     .writer("관리자")
                     .build();
             boardRepository.save(board);

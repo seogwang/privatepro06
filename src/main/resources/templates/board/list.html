@@ -17,7 +17,7 @@
         .item2 { width: 60%; text-align: left; padding-left: 20px; }
         .item3 { width: 20%; text-align: center; }
 
-        .item2 a { color: #6ebca8; font-weight: bolder; background: none; }
+        .item2 a { color: black; font-weight: bolder; background: none; }
     </style>
 
 </head>
@@ -25,7 +25,7 @@
 <div layout:fragment="content">
     <section class="about_section">
         <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
-            <div class="row">
+            <div class="row" style="align-items: flex-start;">
                 <div class="col-md-6">
                     <div class="about_img-container">
                         <img th:src="@{/images/about.png}" alt="">
@@ -33,9 +33,14 @@
                 </div>
                 <div class="col-md-6">
                     <div class="about_detail-box">
-                        <h3>
+                        <h3 style="float: left;">
                             에듀몬 공지사항
                         </h3>
+                        <div sec:authorize="hasRole('ADMIN')" style="display: block; float: left; padding-left: 20px;">
+                            <a th:href="@{/board/write}" class="call_to-btn btn_white-border" style="padding: 3px 45px; background-color: #005cbf;">
+                                공지사항 등록
+                            </a>
+                        </div>
                         <table class="tb1" id="myTable1">
                             <thead>
                                 <tr>
@@ -46,7 +51,7 @@
                             </thead>
                             <tbody>
                                     <tr th:each="bd, status: ${list}">
-                                        <td class="item1">[[${status.index}]]</td>
+                                        <td class="item1">[[${bd.bno}]]</td>
                                         <td class="item2"><a th:href="@{/board/read(bno=${bd.bno})}">[[${bd.title}]]</a></td>
                                         <td class="item3">[[${#temporals.format(bd.regDate, 'yyyy-MM-dd')}]]</td>
                                     </tr>
@@ -71,11 +76,6 @@
                                 });
                             });
                         </script>
-                        <div sec:authorize="hasRole('ADMIN')">
-                            <a href="" class="call_to-btn btn_white-border">
-                                공지사항 등록
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

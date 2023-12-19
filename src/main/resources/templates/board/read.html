@@ -8,7 +8,9 @@
     <title>공지사항</title>
     <style>
         h2 {text-align: center; padding-top: 2rem;}
-        tbody td {text-align: left; padding-left: 10px;}
+        tbody td {text-align: left; padding-left: 10px; width: 39%; }
+        tbody th {text-align: center; width: 10%; }
+        tr { border-bottom: 1px solid #aaaaaa; height: 2.5rem; }
     </style>
     <script src="https://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" th:href="@{/lib/jquery.dataTables.css}">
@@ -19,21 +21,26 @@
 <div layout:fragment="content">
     <section class="about_section">
         <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
-            <div class="row">
+            <div class="row" style="align-items: flex-start;">
                 <div class="col-md-6">
                     <div class="about_img-container">
                         <img th:src="@{/images/about.png}" alt="">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="about_detail-box" style="min-height: 50%;">
-                        <h3>
+                <div class="col-md">
+                    <div class="row" style="height: 10vh; align-items: flex-start">
+                        <h3 style="padding-left: 10px;">
                             에듀몬 공지사항
                         </h3>
-                        <table class="tb1" id="myTable1">
-                            <thead>
-                            </thead>
-                            <tbody>
+                    </div>
+
+                    <div class="row" style="min-height: 35vh; align-items: flex-start; ">
+                        <div class="col-md">
+                            <div class="about_detail-box">
+                                <table class="tb1" id="myTable1">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
                                     <tr>
                                         <th class="item1">글번호</th>
                                         <td class="item1">[[${dto.bno}]]</td>
@@ -43,23 +50,40 @@
                                         <td class="item2">[[${dto.title}]]</td>
                                     </tr>
                                     <tr>
-                                        <th class="item3">내용</th>
-                                        <td class="item3">[[${dto.content}]]</td>
+                                        <th class="item3">작성자</th>
+                                        <td class="item3">[[${dto.writer}]]</td>
                                     </tr>
                                     <tr>
-                                        <th class="item4">작성자</th>
-                                        <td class="item4">[[${dto.writer}]]</td>
+                                        <th class="item4">작성일</th>
+                                        <td class="item4">[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
                                     </tr>
-                                    <tr>
-                                        <th class="item5">작성일</th>
-                                        <td class="item5">[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+                                    <tr style="height: 30vh; vertical-align: top; ">
+                                        <th class="item5" style="padding: 10px; ">내용</th>
+                                        <td class="item5" style="padding: 10px; ">[[${dto.content}]]</td>
                                     </tr>
-                            </tbody>
-                        </table>
-                        <div class="">
-                            <a href="" class="call_to-btn btn_white-border">
-                                Read More
-                            </a>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="height: 10vh;">
+                        <div class="col-md">
+                            <div class="row">
+                                <div style="padding-right: 4px;">
+                                    <a href="/board/list" class="call_to-btn btn_white-border" style="padding: 10px 45px; background-color: #005cbf;">
+                                        목록
+                                    </a>
+                                </div>
+                                <div sec:athorize="hasRole('ADMIN')">
+                                    <a th:href="|@{/board/editFm(bno=${dto.bno})}|" class="call_to-btn btn_white-border" style="padding: 10px 45px; background-color: #ffc107;">
+                                        수정
+                                    </a>
+                                    <a th:href="|@{/board/remove(bno=${dto.bno})}|" class="call_to-btn btn_white-border" style="padding: 10px 45px; background-color: #ff1155;">
+                                        삭제
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

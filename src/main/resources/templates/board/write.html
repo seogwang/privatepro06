@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>공지사항 작성</title>
+    <style>
+        h2 {text-align: center; padding-top: 2rem;}
+        tbody td {text-align: left; padding-left: 10px;}
+    </style>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" th:href="@{/lib/jquery.dataTables.css}">
+    <script th:src="@{/lib/jquery.dataTables.js}"></script>
+
+</head>
+
+<div layout:fragment="content">
+    <section class="about_section">
+        <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="about_img-container">
+                        <img th:src="@{/images/about.png}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="about_detail-box" style="min-height: 50%;">
+                        <h3>
+                            에듀몬 공지사항 작성
+                        </h3>
+                        <div class="form_wrap">
+                            <form action="/board/write" method="post" id="frm">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">제목</label>
+                                    <input type="text" class="form-control" id="title" name="title" maxlength="200" placeholder="제목 입력">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="content" class="form-label">내용</label>
+                                    <textarea class="form-control" id="content" name="content" maxlength="2000" placeholder="내용 입력" style="height: 35vh;"></textarea>
+                                </div>
+                                <div>
+                                    <a href="#" onclick="return form_submit()" class="call_to-btn btn_white-border" style="padding: 10px 45px;">
+                                        공지사항 등록
+                                    </a>
+                                </div>
+                            </form>
+                            <script>
+                                function form_submit() {
+                                    document.getElementById('frm').submit();
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
