@@ -1,14 +1,19 @@
 package com.privatepro06.service;
 
+import com.privatepro06.dto.MemberFormDTO;
 import com.privatepro06.entity.Member;
 import com.privatepro06.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public Member findByEmail(String email){
         Member member = memberRepository.findByEmail(email);
@@ -25,6 +32,14 @@ public class MemberService implements UserDetailsService {
     public Member saveMember(Member member){
         validateDuplicateMember(member);
         return memberRepository.save(member);
+    }
+
+    public MemberFormDTO modify(MemberFormDTO dto){
+        Member result = memberRepository.findByEmail(dto.getEmail());
+        result.edit(dto, passwordEncoder);
+        memberRepository.save(result);
+        MemberFormDTO memberFormDTO = modelMapper.map(result, MemberFormDTO.class);
+        return memberFormDTO;
     }
 
     public void validateDuplicateMember(Member member){

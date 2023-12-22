@@ -6,7 +6,6 @@ import com.privatepro06.service.BoardService;
 import com.privatepro06.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +24,8 @@ public class BoardController {
 
     private final BoardService boardService;
     private final MemberService memberService;
+
+    private BaseController baseController;
 
     @GetMapping("/api/list")
     @ResponseBody
@@ -71,8 +72,8 @@ public class BoardController {
         return "redirect:/apiboard/list";
     }
 
-    @GetMapping("/board/write")
-    public String writeForm(){
+    @GetMapping("/board/writeFm")
+    public String writeForm(Model model){
         return "board/write";
     }
 
@@ -89,9 +90,10 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+
     @PreAuthorize("hasAnyRole('USER','ADMIN','TEACHER')")
     @GetMapping("/board/list")
-    public String boardList(Model model){
+    public String boardList(Principal principal, Model model){
         List<BoardDTO> list = boardService.findAll();
         model.addAttribute("list", list);
         return "board/list";
@@ -99,7 +101,7 @@ public class BoardController {
 
     @PreAuthorize("hasAnyRole('USER','ADMIN','TEACHER')")
     @GetMapping("/board/read")
-    public String readOne(Long bno, Model model){
+    public String readOne(Principal principal, Long bno, Model model){
         BoardDTO dto = boardService.findByBno(bno);
         model.addAttribute("dto", dto);
         return "board/read";
@@ -115,7 +117,7 @@ public class BoardController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/board/editFm")
-    public String editForm(Long bno, Model model){
+    public String editForm(Principal principal, Long bno, Model model){
         BoardDTO dto = boardService.findByBno(bno);
         model.addAttribute("dto", dto);
         return "board/edit";

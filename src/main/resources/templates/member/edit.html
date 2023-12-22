@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>회원정보수정</title>
+    <style>
+        h2 {text-align: center; padding-top: 2rem;}
+        .fieldError { color: #bd2130; }
+    </style>
+</head>
+
+<div layout:fragment="content">
+    <!-- contact section -->
+    <section class="contact_section ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-center d-md-block">
+                        <h2>
+                            회원정보수정
+                        </h2>
+                    </div>
+                    <form th:action="@{/member/editPro}" method="post" id="frm" th:form="${MemberFormDTO}" >
+                        <div class="contact_form-container">
+                            <div>
+                                <div>
+                                    <label for="name">이름</label>
+                                    <input type="text" id="name" name="name" th:value="${member.getName()}" maxlength="12">
+                                </div>
+                                <div>
+                                    <label for="email">이메일</label>
+                                    <input type="email" name="email" id="email" th:value="${member.getEmail()}" readonly>
+                                </div>
+                                <div>
+                                    <label for="pw">비밀번호</label>
+                                    <input type="password" name="password" id="pw" th:value="${member.getPassword()}" >
+                                    <label for="pw">비밀번호확인</label>
+                                    <input type="password" id="pw1" th:value="${member.getPassword()}" >
+                                </div>
+                                <div class="mt-5">
+                                    <label for="address">주소</label>
+                                    <input type="text" id="address" name="address" th:value="${member.getAddress()}">
+                                </div>
+                                <div class="mt-5">
+                                    <button type="submit" onclick="return pw_ck()" id="reg-btn">수정하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <script src="http://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                    <script>
+                        function pw_ck() {
+                            var pw = document.getElementById('pw').value;
+                            var pw1 = document.getElementById('pw1').value;
+                            if(pw === pw1) {
+                                document.getElementById('frm').submit();
+                            } else {
+                                alert("비밀번호와 비밀번호 확인이 다릅니다.");
+                                return false;
+                            }
+                        }
+                    </script>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="contact_img-box">
+                        <img th:src="@{/images/students.jpg}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end contact section -->
+</div>
+

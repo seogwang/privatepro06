@@ -52,4 +52,13 @@ public class Member {
         member.setRole(Role.USER);
         return member;
     }
+
+    public void edit(MemberFormDTO dto, PasswordEncoder passwordEncoder){
+        this.name = dto.getName();
+        String npw = dto.getPassword();
+        if (npw.length() <= 16) {
+            this.password = passwordEncoder.encode(dto.getPassword());
+        }
+        this.address = dto.getAddress();
+    }
 }
